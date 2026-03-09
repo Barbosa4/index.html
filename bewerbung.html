@@ -1,929 +1,327 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LSPD High Command Bewerbung – Jack Barbosa</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LSPD Case File</title>
 
 <style>
-:root{
-  --bg:#07111a;
-  --bg2:#0b1622;
-  --panel:#0f1d2b;
-  --panel2:#142739;
-  --line:rgba(255,255,255,0.08);
-  --accent:#7cc1ff;
-  --gold:#d8b66b;
-  --text:#eef5ff;
-  --muted:#9eb3cb;
-  --paper:#e8dcc3;
-  --paper2:#dfcfad;
-  --paper-line:rgba(90,72,39,0.08);
-  --ink:#2a261f;
-  --red:#ff4d5f;
-  --blue:#4db8ff;
-  --shadow:0 22px 60px rgba(0,0,0,.42);
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html{
-  scroll-behavior:smooth;
-}
 
 body{
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(circle at 15% 10%,rgba(124,193,255,0.12),transparent 18%),
-    radial-gradient(circle at 88% 10%,rgba(216,182,107,0.08),transparent 20%),
-    linear-gradient(180deg,#061019 0%,#0a1421 45%,#07111a 100%);
-  overflow-x:hidden;
+font-family:Arial;
+margin:0;
+background:#07111a;
+color:white;
+overflow-x:hidden;
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background:
-    linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);
-  background-size:34px 34px;
-  mask-image:linear-gradient(to bottom,rgba(255,255,255,0.4),rgba(255,255,255,0.06));
-}
+/* LSPD Wasserzeichen */
 
 body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-  background-image:url("TOW.png");
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:700px;
-  opacity:.045;
+content:"";
+position:fixed;
+inset:0;
+background:url("TOW.png") center no-repeat;
+background-size:700px;
+opacity:0.04;
+pointer-events:none;
 }
 
-.page{
-  position:relative;
-  z-index:1;
-  width:100%;
-  padding:0 10px 24px;
+/* Deckblatt */
+
+.cover{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
 }
 
-/* DECKBLATT */
-
-.coverScreen{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:30px 12px;
+.coverBox{
+background:#0e1b28;
+border:1px solid rgba(255,255,255,0.08);
+padding:80px;
+border-radius:12px;
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
 }
 
-.fileWrap{
-  width:min(980px,100%);
-  position:relative;
+.coverBox h1{
+font-size:50px;
+letter-spacing:6px;
+margin-bottom:20px;
 }
 
-.fileTab{
-  position:absolute;
-  top:-18px;
-  left:32px;
-  background:linear-gradient(180deg,#d8c295,#c9af7b);
-  color:#5b4928;
-  font-weight:800;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  font-size:.8rem;
-  padding:12px 22px;
-  border-top-left-radius:14px;
-  border-top-right-radius:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,.18);
-  z-index:2;
+.coverBox p{
+color:#9fb6cc;
+margin-bottom:30px;
 }
 
-.coverFolder{
-  background:linear-gradient(180deg,#bfa678,#e0cfaa 34px,#dcc7a0 34px,#e8dcc3 100%);
-  border:1px solid rgba(0,0,0,.2);
-  border-radius:22px;
-  padding:60px 30px 30px;
-  box-shadow:0 28px 70px rgba(0,0,0,.35);
-  position:relative;
-  overflow:hidden;
+.openBtn{
+background:#3da3ff;
+border:none;
+color:white;
+padding:14px 28px;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
 }
 
-.coverFolder::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.2),transparent 20%),
-    repeating-linear-gradient(180deg,transparent 0 34px,rgba(90,72,39,.06) 34px 35px);
-  pointer-events:none;
+/* Banner */
+
+.banner{
+height:260px;
+position:relative;
+overflow:hidden;
 }
 
-.coverInner{
-  position:relative;
-  z-index:1;
-  background:rgba(255,255,255,.22);
-  border:1px solid rgba(90,72,39,.16);
-  border-radius:18px;
-  padding:28px;
+.banner img{
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
-.coverHeader{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:18px;
-  align-items:stretch;
+.banner::before{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(180deg,transparent,#07111a);
 }
 
-.coverBanner{
-  position:relative;
-  min-height:300px;
-  overflow:hidden;
-  border-radius:18px;
-  border:1px solid rgba(90,72,39,.14);
-  box-shadow:0 14px 34px rgba(0,0,0,.18);
-}
-
-.coverBanner img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.coverBanner::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,rgba(4,8,14,.78) 0%,rgba(4,8,14,.34) 45%,rgba(4,8,14,.74) 100%),
-    linear-gradient(180deg,rgba(4,8,14,.16),rgba(4,8,14,.8));
-  z-index:1;
-}
-
-.coverBanner::after{
-  content:"";
-  position:absolute;
-  inset:14px;
-  border:1px solid rgba(255,255,255,.08);
-  z-index:2;
-}
-
-.policeLights{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  overflow:hidden;
-}
-
-.policeLights .light{
-  position:absolute;
-  top:-8%;
-  width:40%;
-  height:120%;
-  filter:blur(46px);
-  opacity:.16;
-  mix-blend-mode:screen;
-  animation-duration:3s;
-  animation-iteration-count:infinite;
-  animation-timing-function:ease-in-out;
-}
-
-.policeLights .red{
-  left:-6%;
-  background:linear-gradient(90deg,transparent,rgba(255,77,95,.95),transparent);
-  transform:rotate(12deg);
-  animation-name:redPulse;
-}
-
-.policeLights .blue{
-  right:-6%;
-  background:linear-gradient(90deg,transparent,rgba(77,184,255,.95),transparent);
-  transform:rotate(-12deg);
-  animation-name:bluePulse;
-}
-
-@keyframes redPulse{
-  0%,100%{opacity:.05}
-  12%,30%{opacity:.22}
-  42%,72%{opacity:.07}
-  84%{opacity:.18}
-}
-
-@keyframes bluePulse{
-  0%,100%{opacity:.06}
-  16%,34%{opacity:.2}
-  48%,76%{opacity:.08}
-  88%{opacity:.22}
-}
-
-.coverBannerText{
-  position:absolute;
-  left:22px;
-  right:22px;
-  bottom:22px;
-  z-index:3;
-  color:#fff;
-}
-
-.eyebrow{
-  color:var(--accent);
-  text-transform:uppercase;
-  letter-spacing:.22em;
-  font-size:.78rem;
-  font-weight:800;
-  margin-bottom:8px;
-}
-
-.coverBannerText h1{
-  font-size:clamp(2rem,4vw,4rem);
-  line-height:.95;
-  letter-spacing:-.04em;
-  margin-bottom:8px;
-}
-
-.coverBannerText h2{
-  color:var(--gold);
-  font-size:clamp(.95rem,1.5vw,1.3rem);
-  font-weight:700;
-}
-
-.coverMeta{
-  display:grid;
-  gap:16px;
-}
-
-.metaCard{
-  background:rgba(255,255,255,.34);
-  border:1px solid rgba(90,72,39,.14);
-  border-radius:18px;
-  padding:18px;
-  color:var(--ink);
-}
-
-.metaCard h3{
-  color:#2b4056;
-  font-size:1rem;
-  margin-bottom:10px;
-}
-
-.metaCard p{
-  color:#564c3b;
-  line-height:1.75;
-}
-
-.openButtonWrap{
-  margin-top:22px;
-  text-align:center;
-}
-
-.openButton{
-  border:none;
-  background:linear-gradient(135deg,var(--accent),#4f8dce);
-  color:white;
-  padding:16px 26px;
-  border-radius:14px;
-  font:inherit;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 16px 34px rgba(124,193,255,.25);
-  transition:.22s ease;
-}
-
-.openButton:hover{
-  transform:translateY(-2px);
-}
-
-.openNote{
-  margin-top:12px;
-  color:#5f533f;
-  font-size:.95rem;
-}
-
-/* HAUPTINHALT */
-
-.app{
-  display:none;
-}
-
-.app.visible{
-  display:block;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:14px;
-  padding:14px 18px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:rgba(8,15,24,.9);
-  backdrop-filter:blur(14px);
-  box-shadow:0 20px 50px rgba(0,0,0,.35);
-  margin:12px 0 16px;
-  flex-wrap:wrap;
-  position:sticky;
-  top:10px;
-  z-index:20;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.badge{
-  width:48px;
-  height:48px;
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,var(--accent),#477fbb);
-  color:#fff;
-  font-weight:900;
-  box-shadow:0 12px 30px rgba(124,193,255,.24);
-  position:relative;
-  overflow:hidden;
-}
-
-.badge::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 40%);
-}
-
-.brand h3{
-  font-size:1.02rem;
-  margin-bottom:2px;
-}
-
-.brand p{
-  color:var(--muted);
-  font-size:.9rem;
-}
-
-.topRight{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 14px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.04);
-  color:var(--muted);
-  font-size:.92rem;
-}
-
-.pill::before{
-  content:"";
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#75ffd4;
-  box-shadow:0 0 0 6px rgba(117,255,212,.12);
-}
-
-.bannerSmall{
-  position:relative;
-  width:100%;
-  min-height:280px;
-  overflow:hidden;
-  border-radius:22px;
-  border:1px solid var(--line);
-  box-shadow:var(--shadow);
-  margin-bottom:16px;
-}
-
-.bannerSmall img{
-  width:100%;
-  height:280px;
-  object-fit:cover;
-  display:block;
-}
-
-.bannerSmall::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,rgba(4,8,14,.78) 0%,rgba(4,8,14,.36) 44%,rgba(4,8,14,.78) 100%),
-    linear-gradient(180deg,rgba(4,8,14,.15),rgba(4,8,14,.82));
-  z-index:1;
-}
-
-.bannerSmallText{
-  position:absolute;
-  left:24px;
-  right:24px;
-  bottom:22px;
-  z-index:3;
-}
-
-.bannerSmallText h2{
-  font-size:clamp(1.8rem,3vw,3rem);
-  line-height:.95;
-  margin-bottom:8px;
-}
-
-.bannerSmallText p{
-  color:#dbe7f5;
-  max-width:720px;
-  line-height:1.75;
-}
+/* Navigation */
 
 .nav{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:10px;
-  margin-bottom:16px;
+display:flex;
+justify-content:center;
+gap:12px;
+padding:20px;
 }
 
 .nav button{
-  border:1px solid rgba(255,255,255,.08);
-  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.025));
-  color:var(--text);
-  padding:13px 16px;
-  border-radius:999px;
-  font:inherit;
-  font-weight:700;
-  cursor:pointer;
-  transition:.22s ease;
+padding:12px 20px;
+background:#0f1e2d;
+border:1px solid rgba(255,255,255,0.08);
+color:white;
+border-radius:30px;
+cursor:pointer;
 }
 
-.nav button:hover,
 .nav button.active{
-  border-color:rgba(124,193,255,.28);
-  background:linear-gradient(135deg,rgba(124,193,255,.14),rgba(216,182,107,.1));
-  transform:translateY(-1px);
+background:#3da3ff;
 }
 
-.sectionPanel{
-  display:none;
+/* Aktenbereich */
+
+.section{
+display:none;
+max-width:1000px;
+margin:auto;
+padding:30px;
 }
 
-.sectionPanel.active{
-  display:block;
+.section.active{
+display:block;
 }
 
-.fileFolder{
-  background:linear-gradient(180deg,#bfa678,#e0cfaa 34px,#dcc7a0 34px,#e8dcc3 100%);
-  border:1px solid rgba(0,0,0,.2);
-  border-radius:18px;
-  padding:34px 22px 22px;
-  box-shadow:0 20px 50px rgba(0,0,0,.28);
-  position:relative;
-  overflow:hidden;
+.file{
+background:#e8dcc3;
+color:#2a261f;
+padding:50px;
+border-radius:12px;
+box-shadow:0 20px 40px rgba(0,0,0,0.3);
 }
 
-.fileFolder::before{
-  content:"HIGH COMMAND DOSSIER";
-  position:absolute;
-  top:0;
-  left:24px;
-  height:28px;
-  padding:0 18px;
-  display:flex;
-  align-items:center;
-  background:#d3bc91;
-  color:#5a4827;
-  font-size:.8rem;
-  font-weight:800;
-  letter-spacing:.12em;
-  border-bottom-left-radius:10px;
-  border-bottom-right-radius:10px;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
+.file h2{
+color:#1e2f40;
 }
 
-.fileFolder::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(90,72,39,.08) 31px 32px);
-  opacity:.34;
-  pointer-events:none;
+.file p{
+line-height:1.8;
 }
 
-.sectionHead{
-  display:flex;
-  justify-content:space-between;
-  gap:18px;
-  align-items:flex-start;
-  margin-bottom:18px;
-  padding-bottom:14px;
-  border-bottom:1px solid rgba(90,72,39,.16);
-  position:relative;
-  z-index:1;
-  color:#2f2920;
+.file ul{
+margin-left:20px;
+line-height:1.8;
 }
 
-.sectionHead h3{
-  font-size:clamp(1.5rem,2vw,2.2rem);
-  margin-bottom:8px;
-  color:#2b4056;
-}
-
-.sectionHead p{
-  color:#564c3b;
-  line-height:1.8;
-  max-width:860px;
-}
-
-.tag{
-  white-space:nowrap;
-  padding:10px 14px;
-  border-radius:999px;
-  color:#2b4056;
-  border:1px solid rgba(43,64,86,.16);
-  background:rgba(120,187,255,.12);
-  font-size:.84rem;
-  font-weight:700;
-}
-
-.quote,
-.signBox,
-.card{
-  background:rgba(255,255,255,.34);
-  border:1px solid rgba(90,72,39,.14);
-  border-radius:16px;
-  padding:22px;
-  position:relative;
-  z-index:1;
-}
-
-.quote p{
-  color:#2c2a27;
-  line-height:1.95;
-  font-size:1.03rem;
-  margin-bottom:18px;
-}
-
-.quote ul{
-  padding-left:24px;
-  margin:10px 0 18px;
-}
-
-.quote li{
-  color:#2c2a27;
-  line-height:1.9;
-  margin-bottom:6px;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-  position:relative;
-  z-index:1;
-}
-
-.card h4{
-  color:#2b4056;
-  margin-bottom:10px;
-  font-size:1.02rem;
-}
-
-.card p,
-.card li{
-  color:#564c3b;
-  line-height:1.82;
-}
-
-.card ul{
-  padding-left:18px;
-  display:grid;
-  gap:8px;
-}
-
-.signBox{
-  margin-top:22px;
-  text-align:right;
-}
-
-.signScript{
-  font-family:cursive;
-  font-size:42px;
-  color:#1e2730;
-  margin:16px 0 8px;
+.signature{
+margin-top:40px;
+font-family:cursive;
+font-size:32px;
 }
 
 .footer{
-  text-align:center;
-  color:var(--muted);
-  padding:18px 0 6px;
-  font-size:.94rem;
+text-align:center;
+padding:20px;
+color:#9fb6cc;
 }
 
-@media(max-width:1100px){
-  .coverHeader,
-  .cards{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:820px){
-  .heroStats{
-    grid-template-columns:1fr;
-  }
-  .bannerContent{
-    left:20px;
-    right:20px;
-    bottom:20px;
-  }
-}
-
-@media(max-width:720px){
-  .page{
-    padding:0 8px 20px;
-  }
-  .nav{
-    grid-template-columns:1fr;
-  }
-  .nav button{
-    width:100%;
-  }
-  .coverFolder{
-    padding:48px 14px 14px;
-  }
-  .fileFolder{
-    padding:28px 14px 14px;
-  }
-  .sectionHead{
-    flex-direction:column;
-  }
-  .topbar{
-    border-radius:16px;
-  }
-  .coverBanner{
-    min-height:220px;
-  }
-  .coverBanner img{
-    min-height:220px;
-  }
-  .bannerSmall img{
-    height:220px;
-  }
-  .bannerCopy h1{
-    font-size:40px;
-  }
-}
 </style>
 </head>
+
 <body>
 
-<div class="page">
+<!-- Deckblatt -->
 
-  <!-- DECKBLATT -->
-  <section class="coverScreen" id="coverScreen">
-    <div class="fileWrap">
-      <div class="fileTab">LSPD Case File</div>
+<div class="cover" id="cover">
 
-      <div class="coverFolder">
-        <div class="coverInner">
-          <div class="coverHeader">
+<div class="coverBox">
 
-            <div class="coverBanner">
-              <img src="TOW.png" alt="Jack Barbosa LSPD Banner">
+<h1>LSPD AKTE</h1>
 
-              <div class="policeLights">
-                <div class="light red"></div>
-                <div class="light blue"></div>
-              </div>
+<p>
+Los Santos Police Department<br>
+High Command Bewerbung
+</p>
 
-              <div class="coverBannerText">
-                <div class="eyebrow">Los Santos Police Department</div>
-                <h1>JACK BARBOSA</h1>
-                <h2>High Command Application</h2>
-              </div>
-            </div>
+<button class="openBtn" onclick="openFile()">Akte öffnen</button>
 
-            <div class="coverMeta">
-              <div class="metaCard">
-                <h3>Aktenübersicht</h3>
-                <p>
-                  Diese Bewerbungsakte enthält das Anschreiben, die Stärken, die Motivation sowie den formellen Abschluss mit Signatur.
-                </p>
-              </div>
+</div>
 
-              <div class="metaCard">
-                <h3>Funktion</h3>
-                <p>
-                  Stellv. TF Leitung<br>
-                  I.U Senior Investigator
-                </p>
-              </div>
+</div>
 
-              <div class="metaCard">
-                <h3>Status</h3>
-                <p>
-                  Bewerbung bereit zur Einsicht und Prüfung durch die Leadership.
-                </p>
-              </div>
-            </div>
+<!-- Hauptseite -->
 
-          </div>
+<div id="app" style="display:none">
 
-          <div class="openButtonWrap">
-            <button class="openButton" onclick="openFile()">Bewerbung öffnen</button>
-            <div class="openNote">Öffnet die vollständige Bewerbungsakte mit allen Kategorien.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="banner">
+<img src="TOW.png">
+</div>
 
-  <!-- HAUPTSEITE -->
-  <div class="app" id="app">
-    <header class="topbar">
-      <div class="brand">
-        <div class="badge">PD</div>
-        <div>
-          <h3>LSPD High Command Bewerbung</h3>
-          <p>Jack Barbosa • Task Force / Intelligence Unit</p>
-        </div>
-      </div>
+<div class="nav">
 
-      <div class="topRight">
-        <div class="pill">Bewerbung aktiv</div>
-      </div>
-    </header>
+<button class="active" onclick="openSection('anschreiben',this)">
+Anschreiben
+</button>
 
-    <section class="bannerSmall">
-      <img src="TOW.png" alt="Jack Barbosa Banner">
+<button onclick="openSection('staerken',this)">
+Stärken
+</button>
 
-      <div class="policeLights">
-        <div class="light red"></div>
-        <div class="light blue"></div>
-      </div>
+<button onclick="openSection('motivation',this)">
+Motivation
+</button>
 
-      <div class="bannerSmallText">
-        <div class="eyebrow">High Command Dossier</div>
-        <h2>Jack Barbosa</h2>
-        <p>Formelle Bewerbung im Police-Aktenstil mit Kategorien, Signatur und strukturiertem Aufbau.</p>
-      </div>
-    </section>
+</div>
 
-    <nav class="nav">
-      <button class="active" data-panel="anschreiben">Anschreiben</button>
-      <button data-panel="staerken">Stärken</button>
-      <button data-panel="motivation">Motivation</button>
-      <button data-panel="signatur">Signatur</button>
-      <button onclick="backToCover()">Deckblatt</button>
-    </nav>
+<!-- Anschreiben -->
 
-    <section class="sectionPanel active" id="anschreiben">
-      <div class="fileFolder">
-        <div class="sectionHead">
-          <div>
-            <h3>Bewerbung für den High Command – Los Santos Police Department</h3>
-            <p>Das formelle Anschreiben im gleichen Police-/Dossier-Stil wie die übrigen Seiten.</p>
-          </div>
-          <div class="tag">Letter</div>
-        </div>
+<div class="section active" id="anschreiben">
 
-        <div class="quote">
-          <p>Sehr geehrte Damen und Herren der Leadership,</p>
+<div class="file">
 
-          <p>Hiermit möchte ich, Jack Barbosa, meine Bewerbung für eine Position im High Command des Los Santos Police Departments einreichen.</p>
+<h2>Bewerbung für den High Command – Los Santos Police Department</h2>
 
-          <p>Ich bin seit Dezember im aktiven Dienst des LSPD und konnte in dieser Zeit umfassende Erfahrungen sammeln. Derzeit bin ich sowohl in der Task Force als auch in der Intelligence Unit tätig. Diese Positionen haben mir nicht nur taktisches Verständnis und operative Stärke vermittelt, sondern auch strategisches Denken, Diskretion und analytische Fähigkeiten abverlangt.</p>
+<p>
+Sehr geehrte Damen und Herren der Leadership,
+</p>
 
-          <p>In der Task Force war ich maßgeblich an koordinierten Einsätzen beteiligt, insbesondere bei organisierten Kriminalfällen und komplexen Gefahrenlagen. Teamarbeit, Führungsstärke und schnelles, strukturiertes Handeln standen hierbei stets im Vordergrund.</p>
+<p>
+Hiermit möchte ich, Jack Barbosa, meine Bewerbung für eine Position im High Command des Los Santos Police Departments einreichen.
+</p>
 
-          <p>Innerhalb der Intelligence Unit habe ich gelernt, Informationen gezielt auszuwerten, Zusammenhänge zu erkennen und operative Maßnahmen strategisch vorzubereiten. Die enge Zusammenarbeit mit anderen Abteilungen sowie das vertrauliche Arbeiten mit sensiblen Daten gehören hier zu meinem Alltag.</p>
+<p>
+Ich bin seit Dezember im aktiven Dienst des LSPD und konnte in dieser Zeit umfassende Erfahrungen sammeln. Derzeit bin ich sowohl in der Task Force als auch in der Intelligence Unit tätig. Diese Positionen haben mir nicht nur taktisches Verständnis und operative Stärke vermittelt, sondern auch strategisches Denken, Diskretion und analytische Fähigkeiten abverlangt.
+</p>
 
-          <p>Ich strebe eine Position im High Command an, da ich meine gesammelte Erfahrung, meine Loyalität gegenüber dem Department sowie mein Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte. Mein Ziel ist es, das LSPD nicht nur operativ, sondern auch strukturell weiterzuentwickeln, interne Abläufe zu optimieren und als Vorbild für unterstellte Einheiten zu dienen.</p>
+<p>
+In der Task Force war ich maßgeblich an koordinierten Einsätzen beteiligt, insbesondere bei organisierten Kriminalfällen und komplexen Gefahrenlagen. Teamarbeit, Führungsstärke und schnelles, strukturiertes Handeln standen hierbei stets im Vordergrund.
+</p>
 
-          <p>Ich bin bereit, zusätzliche Verantwortung zu übernehmen und die Werte des LSPD auf höchstem Niveau zu vertreten. Über eine positive Rückmeldung würde ich mich sehr freuen.</p>
+<p>
+Innerhalb der Intelligence Unit habe ich gelernt, Informationen gezielt auszuwerten, Zusammenhänge zu erkennen und operative Maßnahmen strategisch vorzubereiten. Die enge Zusammenarbeit mit anderen Abteilungen sowie das vertrauliche Arbeiten mit sensiblen Daten gehören hier zu meinem Alltag.
+</p>
 
-          <p>Mit freundlichen Grüßen</p>
-        </div>
-      </div>
-    </section>
+<p>
+Ich strebe eine Position im High Command an, da ich meine gesammelte Erfahrung, meine Loyalität gegenüber dem Department sowie mein Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte.
+</p>
 
-    <section class="sectionPanel" id="staerken">
-      <div class="fileFolder">
-        <div class="sectionHead">
-          <div>
-            <h3>Persönliche Stärken</h3>
-            <p>Die wichtigsten Eigenschaften, die für eine Position im High Command sprechen.</p>
-          </div>
-          <div class="tag">Skills</div>
-        </div>
+<p>
+Mit freundlichen Grüßen
+</p>
 
-        <div class="cards">
-          <div class="card">
-            <h4>Belastbarkeit</h4>
-            <p>Hohe Belastbarkeit und Entscheidungsfähigkeit unter Druck.</p>
-          </div>
-          <div class="card">
-            <h4>Strategie</h4>
-            <p>Strategisches und vorausschauendes Denken in komplexen Situationen.</p>
-          </div>
-          <div class="card">
-            <h4>Führung</h4>
-            <p>Führungsqualitäten, Teamorientierung und klare Kommunikation.</p>
-          </div>
-          <div class="card">
-            <h4>Auftreten</h4>
-            <p>Diskretion, professionelles Auftreten und Durchsetzungsvermögen bei gleichzeitiger Fairness.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="signature">
+Jack Barbosa
+</div>
 
-    <section class="sectionPanel" id="motivation">
-      <div class="fileFolder">
-        <div class="sectionHead">
-          <div>
-            <h3>Motivation</h3>
-            <p>Warum ich mich für eine Position im High Command bewerbe.</p>
-          </div>
-          <div class="tag">Purpose</div>
-        </div>
+<p>
+Stellv. TF Leitung<br>
+I.U Senior Investigator
+</p>
 
-        <div class="quote">
-          <p>Ich strebe eine Position im High Command an, da ich meine gesammelte Erfahrung, meine Loyalität gegenüber dem Department sowie mein Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte.</p>
+</div>
 
-          <p>Mein Ziel ist es, das LSPD nicht nur operativ, sondern auch strukturell weiterzuentwickeln, interne Abläufe zu optimieren und als Vorbild für unterstellte Einheiten zu dienen.</p>
+</div>
 
-          <p>Durch meine Erfahrungen in der Task Force und der Intelligence Unit bringe ich sowohl operative als auch analytische Perspektiven mit, die ich im High Command gewinnbringend einsetzen möchte.</p>
-        </div>
-      </div>
-    </section>
+<!-- Stärken -->
 
-    <section class="sectionPanel" id="signatur">
-      <div class="fileFolder">
-        <div class="sectionHead">
-          <div>
-            <h3>Abschluss & Signatur</h3>
-            <p>Formeller Abschluss der Bewerbung im offiziellen Dossier-Stil.</p>
-          </div>
-          <div class="tag">Signature</div>
-        </div>
+<div class="section" id="staerken">
 
-        <div class="signBox">
-          <p>Mit freundlichen Grüßen</p>
-          <div class="signScript">Jack Barbosa</div>
-          <p>Stellv. TF Leitung<br>I.U Senior Investigator</p>
-        </div>
-      </div>
-    </section>
+<div class="file">
 
-    <div class="footer">
-      LSPD High Command Bewerbung • Police Aktenstil • Jack Barbosa
-    </div>
-  </div>
+<h2>Persönliche Stärken</h2>
+
+<ul>
+
+<li>Hohe Belastbarkeit und Entscheidungsfähigkeit unter Druck</li>
+
+<li>Strategisches und vorausschauendes Denken</li>
+
+<li>Führungsqualitäten und Teamorientierung</li>
+
+<li>Diskretion und professionelles Auftreten</li>
+
+<li>Durchsetzungsvermögen bei gleichzeitiger Fairness</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<!-- Motivation -->
+
+<div class="section" id="motivation">
+
+<div class="file">
+
+<h2>Motivation</h2>
+
+<p>
+Ich strebe eine Position im High Command an, da ich meine gesammelte Erfahrung, meine Loyalität gegenüber dem Department sowie mein Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte.
+</p>
+
+<p>
+Mein Ziel ist es, das LSPD nicht nur operativ, sondern auch strukturell weiterzuentwickeln, interne Abläufe zu optimieren und als Vorbild für unterstellte Einheiten zu dienen.
+</p>
+
+</div>
+
+</div>
+
+<div class="footer">
+LSPD High Command Bewerbung
+</div>
 
 </div>
 
 <script>
-const navButtons = document.querySelectorAll('[data-panel]');
-const panels = document.querySelectorAll('.sectionPanel');
-const cover = document.getElementById('coverScreen');
-const app = document.getElementById('app');
 
 function openFile(){
-  cover.style.display = 'none';
-  app.classList.add('visible');
-  window.scrollTo({top:0,behavior:'smooth'});
+document.getElementById("cover").style.display="none";
+document.getElementById("app").style.display="block";
 }
 
-function backToCover(){
-  app.classList.remove('visible');
-  cover.style.display = 'flex';
-  window.scrollTo({top:0,behavior:'smooth'});
+function openSection(id,btn){
+
+document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+
+document.getElementById(id).classList.add("active");
+btn.classList.add("active");
+
 }
 
-function openPanel(id){
-  panels.forEach(panel => panel.classList.toggle('active', panel.id === id));
-  navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.panel === id));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-navButtons.forEach(btn => {
-  btn.addEventListener('click', () => openPanel(btn.dataset.panel));
-});
 </script>
 
 </body>
