@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>LSPD Case File</title>
+<title>LSPD Akte</title>
 
 <style>
 
@@ -14,18 +14,6 @@ margin:0;
 background:#07111a;
 color:white;
 overflow-x:hidden;
-}
-
-/* LSPD Wasserzeichen */
-
-body::after{
-content:"";
-position:fixed;
-inset:0;
-background:url("TOW.png") center no-repeat;
-background-size:700px;
-opacity:0.04;
-pointer-events:none;
 }
 
 /* Deckblatt */
@@ -81,11 +69,48 @@ height:100%;
 object-fit:cover;
 }
 
-.banner::before{
-content:"";
+/* Blaulicht */
+
+.lights{
 position:absolute;
 inset:0;
-background:linear-gradient(180deg,transparent,#07111a);
+pointer-events:none;
+}
+
+.red{
+position:absolute;
+left:-200px;
+top:0;
+width:400px;
+height:100%;
+background:rgba(255,0,0,0.25);
+filter:blur(120px);
+animation:redLight 3s infinite;
+}
+
+.blue{
+position:absolute;
+right:-200px;
+top:0;
+width:400px;
+height:100%;
+background:rgba(0,120,255,0.25);
+filter:blur(120px);
+animation:blueLight 3s infinite;
+}
+
+@keyframes redLight{
+0%{opacity:0}
+25%{opacity:0.6}
+50%{opacity:0}
+100%{opacity:0}
+}
+
+@keyframes blueLight{
+0%{opacity:0}
+50%{opacity:0}
+75%{opacity:0.6}
+100%{opacity:0}
 }
 
 /* Navigation */
@@ -185,7 +210,14 @@ High Command Bewerbung
 <div id="app" style="display:none">
 
 <div class="banner">
+
 <img src="TOW.png">
+
+<div class="lights">
+<div class="red"></div>
+<div class="blue"></div>
+</div>
+
 </div>
 
 <div class="nav">
@@ -221,19 +253,23 @@ Hiermit möchte ich, Jack Barbosa, meine Bewerbung für eine Position im High Co
 </p>
 
 <p>
-Ich bin seit Dezember im aktiven Dienst des LSPD und konnte in dieser Zeit umfassende Erfahrungen sammeln. Derzeit bin ich sowohl in der Task Force als auch in der Intelligence Unit tätig. Diese Positionen haben mir nicht nur taktisches Verständnis und operative Stärke vermittelt, sondern auch strategisches Denken, Diskretion und analytische Fähigkeiten abverlangt.
+Ich bin seit Dezember im aktiven Dienst des LSPD und konnte in dieser Zeit umfassende Erfahrungen sammeln. Derzeit bin ich sowohl in der Task Force als auch in der Intelligence Unit tätig.
 </p>
 
 <p>
-In der Task Force war ich maßgeblich an koordinierten Einsätzen beteiligt, insbesondere bei organisierten Kriminalfällen und komplexen Gefahrenlagen. Teamarbeit, Führungsstärke und schnelles, strukturiertes Handeln standen hierbei stets im Vordergrund.
+Diese Positionen haben mir taktisches Verständnis, operative Stärke sowie strategisches Denken und analytische Fähigkeiten vermittelt.
 </p>
 
 <p>
-Innerhalb der Intelligence Unit habe ich gelernt, Informationen gezielt auszuwerten, Zusammenhänge zu erkennen und operative Maßnahmen strategisch vorzubereiten. Die enge Zusammenarbeit mit anderen Abteilungen sowie das vertrauliche Arbeiten mit sensiblen Daten gehören hier zu meinem Alltag.
+In der Task Force war ich an mehreren koordinierten Einsätzen beteiligt, insbesondere bei organisierten Kriminalfällen und komplexen Gefahrenlagen.
 </p>
 
 <p>
-Ich strebe eine Position im High Command an, da ich meine gesammelte Erfahrung, meine Loyalität gegenüber dem Department sowie mein Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte.
+Innerhalb der Intelligence Unit habe ich gelernt Informationen gezielt auszuwerten und operative Maßnahmen strategisch vorzubereiten.
+</p>
+
+<p>
+Ich strebe eine Position im High Command an, um meine Erfahrung und Loyalität gegenüber dem Department auf strategischer Ebene einzubringen.
 </p>
 
 <p>
@@ -288,11 +324,11 @@ I.U Senior Investigator
 <h2>Motivation</h2>
 
 <p>
-Ich strebe eine Position im High Command an, da ich meine gesammelte Erfahrung, meine Loyalität gegenüber dem Department sowie mein Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte.
+Ich strebe eine Position im High Command an, da ich meine Erfahrung, Loyalität und Verantwortungsbewusstsein auf strategischer Ebene einbringen möchte.
 </p>
 
 <p>
-Mein Ziel ist es, das LSPD nicht nur operativ, sondern auch strukturell weiterzuentwickeln, interne Abläufe zu optimieren und als Vorbild für unterstellte Einheiten zu dienen.
+Mein Ziel ist es, das LSPD nicht nur operativ, sondern auch strukturell weiterzuentwickeln und interne Abläufe zu optimieren.
 </p>
 
 </div>
